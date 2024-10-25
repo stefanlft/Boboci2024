@@ -18,6 +18,8 @@ public class LinearDriveMode extends LinearOpMode {
     int direction = 1; 
     double servoPosSlides = 0.5;
     double servoPosGrippy = 0;
+
+    // reguleaza deplasarea crane-ului
     public double calculateThrottle(float x) {
         int sign = -1;
         if (x > 0) sign = 1;
@@ -26,32 +28,37 @@ public class LinearDriveMode extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        // log
         telemetry.addData(">", "Initializing...");
         telemetry.update();
 
+        // initializeaza robotul si se asigura ca e in opmode
         robot = new Robot(hardwareMap);
         while (robot.isInitialize() && opModeIsActive()) {
             idle();
         }
 
+        // tot logging
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData(">", "Initialized");
         telemetry.update();
 
 
 
+        // asteapta startul si se opreste daca trebuie
         waitForStart();
         if (isStopRequested()) return;
 
 
-        while (opModeIsActive()) {
-
-
+        while (opModeIsActive()) { // cat timp in opmode
+            
+            // daca left bumper atunci se extinde(?) crane-ul,
+            // daca right bumper se strange
 
             if (gamepad2.left_bumper) {
                 robot.crane.slidesDirection = 1;
                 robot.crane.setSlides(5);
-                if(robot.crane.slideEncoderLastPosition > robot.crane.slideEncoder.getVoltage()){
+                if(robot.crane.slideEncoderLastPosition > robot.crane.slideEncoder.getVoltage()){ // se asigura ca nu a trecut de pozitia
                     robot.crane.slideExtension -= 3.3;
                 }
             } else if (gamepad2.right_bumper) {
@@ -62,19 +69,22 @@ public class LinearDriveMode extends LinearOpMode {
                 }
             } else {
                robot.crane.setSlides(0);
+               // nu se misca
             }
-            robot.crane.slideEncoderLastPosition = robot.crane.slideEncoder.getVoltage();
+            robot.crane.slideEncoderLastPosition = robot.crane.slideEncoder.getVoltage(); // seteaza ultima pozitie
 
 
+            // daca left trigger, seteaza targetul mai departe(?) de robot, daca dreapta, mai aproape
             if(gamepad2.left_trigger > 0.1){
                 robot.crane.craneTarget -= (int) calculateThrottle(gamepad2.left_trigger);
             }
             else if(gamepad2.right_trigger > 0.1){
                 robot.crane.craneTarget += (int) calculateThrottle(gamepad2.right_trigger);
             }
-            robot.crane.motorCrane1.setPower(robot.crane.cranePower(robot.crane.craneTarget));
-            robot.crane.motorCrane2.setPower(robot.crane.cranePower(robot.crane.craneTarget));
+            robot.crane.motorCrane1.setPower(robot.crane.cranePower(robot.crane.craneTarget)); // seteaza puterea
+            robot.crane.motorCrane2.setPower(robot.crane.cranePower(robot.crane.craneTarget)); // seteaza puterea
 
+            // dac apasa pe a, starnge(?), pe b desface, altfel nmc
             if (gamepad2.a) {
                 robot.crane.gripperDirection = 1;
                 robot.crane.setGripper(1);
@@ -85,15 +95,11 @@ public class LinearDriveMode extends LinearOpMode {
             }
             else robot.crane.setGripper(0);
 
+            // misca robotul efectiv in functie de inputul de la joystick uri
             robot.drive.setWeightedDrivePower(new Pose2d((-gamepad1.left_stick_y),(-gamepad1.left_stick_x),(-gamepad1.right_stick_x)));
 
 
-
-
-
-
-
-
+            // tot logging
             telemetry.addData("crane target: ", robot.crane.craneTarget);
                 telemetry.addData("right trigger: ", gamepad2.right_trigger);
                 telemetry.addData("encoder value: ", robot.crane.slideEncoder.getVoltage());
