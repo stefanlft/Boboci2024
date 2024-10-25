@@ -20,7 +20,7 @@ git clone https://github.com/robosapiensprogramare/Boboci2024
 
 ## Care este tema?
 
-Primul lucru pe care trebuie să-l faci este să răsfoiești prin fișierele din repository și să adaugi comentarii la tot ce înțelegi. Sintaxa pentru comentarii este `//` înainte de textul pe care vrei să-l adaugi.
+Primul lucru pe care trebuie să-l faci este să răsfoiești prin fișierele din repository și să adaugi comentarii la tot ce înțelegeti. Sintaxa pentru comentarii este `//` înainte de textul pe care vrei să-l adaugi.
 
 ## Cum îmi trimit tema?
 
