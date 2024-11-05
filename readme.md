@@ -15,7 +15,7 @@ Pentru aceasta tema trebuie sa te uiti in clase si sa modifici urmatoarele lucru
 
 ## Cum îmi trimit tema?
 
-Trimiterea temei este, de fapt, parte din temă. Aceasta constă în crearea unui fork pe GitHub.com, unde vei posta codul tău modificat. Butonul de fork se găsește în [repo](https://github.com/robosapiensprogramare/Boboci2024), în dreapta sus a paginii. De acolo, trebuie să reușești să pui codul modificat în repository-ul tău, fie prin GitHub.com, fie prin orice alt IDE sau editor de text cu integrare pentru Git.
+Puteti folosi acelasi fork pe care l-ati folosit pentru prima tema, toata istoria ramane salvata.
 
 ## Dacă nu știu cum să fac ceva din temă?
 
