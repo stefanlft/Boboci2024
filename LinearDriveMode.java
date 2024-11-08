@@ -51,14 +51,14 @@ public class LinearDriveMode extends LinearOpMode {
             if (gamepad2.left_bumper) {
                 robot.crane.slidesDirection = 1;
                 robot.crane.setSlides(5);
-                if(robot.crane.slideEncoderLastPosition > robot.crane.slideEncoder.getVoltage()){
-                    robot.crane.slideExtension -= 3.3;
+                if(robot.crane.slideEncoderLastPosition < robot.crane.slideEncoder.getVoltage()){
+                    robot.crane.slideExtension += 3.3;
                 }
             } else if (gamepad2.right_bumper) {
                 robot.crane.slidesDirection = -1;
                 robot.crane.setSlides(5);
-                if(robot.crane.slideEncoderLastPosition < robot.crane.slideEncoder.getVoltage()){
-                    robot.crane.slideExtension += 3.3;
+                if(robot.crane.slideEncoderLastPosition > robot.crane.slideEncoder.getVoltage()){
+                    robot.crane.slideExtension -= 3.3;
                 }
             } else {
                robot.crane.setSlides(0);
@@ -66,10 +66,10 @@ public class LinearDriveMode extends LinearOpMode {
             robot.crane.slideEncoderLastPosition = robot.crane.slideEncoder.getVoltage();
 
 
-            if(gamepad2.left_trigger > 0.1){
+            if(gamepad2.left_trigger > 0.2){
                 robot.crane.craneTarget -= (int) calculateThrottle(gamepad2.left_trigger);
             }
-            else if(gamepad2.right_trigger > 0.1){
+            else if(gamepad2.right_trigger > 0.2){
                 robot.crane.craneTarget += (int) calculateThrottle(gamepad2.right_trigger);
             }
             robot.crane.motorCrane1.setPower(robot.crane.cranePower(robot.crane.craneTarget));
