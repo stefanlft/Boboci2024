@@ -32,5 +32,5 @@ Accesați [repoul](https://github.com/robosapiensprogramare/Boboci2024). Deasupr
 ```bash
 git clone https://github.com/robosapiensprogramare/Boboci2024
 ```
-### Nume
-Stefan Elefterescu 9B
+## Nume
+Stefan Elefterescu **9B**
